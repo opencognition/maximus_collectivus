@@ -1,0 +1,2 @@
+class NodeRoleAssignmentsController < ApplicationController
+end

@@ -1,0 +1,2 @@
+module NodeRoleAssignmentsHelper
+end
