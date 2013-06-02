@@ -1,5 +1,8 @@
-Mcc::Application.routes.draw do
+Mcs::Application.routes.draw do
+  resources :nodes
   resources :users
+  resources :groups
+  resources :user_groups  # Sample resource route with options:
 
   match "logout" => "application#logout"
   match "cas_proxy_callback/:action" => "cas_proxy_callback"
@@ -17,8 +20,6 @@ Mcc::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-
-  # Sample resource route with options:
   #   resources :products do
   #     member do
   #       get 'short'

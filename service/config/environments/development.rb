@@ -1,4 +1,4 @@
-Mcc::Application.configure do
+Mcs::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
@@ -43,7 +43,7 @@ Mcc::Application.configure do
     :cas_base_url       => "https://cas.maximus-collectivus.gov/",
     :login_url          => "https://cas.maximus-collectivus.gov/login",
     :logout_url         => "https://cas.maximus-collectivus.gov/logout",
-    :proxy_callback_url => "https://client.maximus-collectivus.gov/cas_proxy_callback/receive_pgt",
+    :proxy_callback_url => "https://service.maximus-collectivus.gov/cas_proxy_callback/receive_pgt",
     :username_session_key => :cas_user,
     :extra_attributes_session_key => :cas_extra_attributes,
     :logger => cas_logger,

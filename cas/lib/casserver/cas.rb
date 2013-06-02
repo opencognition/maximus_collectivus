@@ -58,8 +58,10 @@ module CASServer::CAS
 
   def generate_proxy_ticket(target_service, pgt)
     # 3.2 (proxy ticket)
-    pt = ProxyTicket.new
-    pt.ticket = "PT-" + String.random
+    #pt = ProxyTicket.new
+    pt = ServiceTicket.new
+    #pt.ticket = "PT-" + String.random
+    pt.ticket = "ST-" + String.random
     pt.service = target_service
     pt.username = pgt.service_ticket.username
     pt.granted_by_pgt_id = pgt.id
@@ -76,6 +78,7 @@ module CASServer::CAS
     uri = URI.parse(pgt_url)
     https = Net::HTTP.new(uri.host,uri.port)
     https.use_ssl = true
+    https.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
     # Here's what's going on here:
     #
