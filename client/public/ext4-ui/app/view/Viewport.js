@@ -1,5 +1,7 @@
 Ext.define('MaximusCollectivus.view.Viewport', {
     extend: 'Ext.container.Viewport',
+    layout: 'fit',
+    
     requires: [
         'MaximusCollectivus.view.NewStation',
         'MaximusCollectivus.view.SongControls',
@@ -7,11 +9,9 @@ Ext.define('MaximusCollectivus.view.Viewport', {
         'MaximusCollectivus.view.RecentlyPlayedScroller',
         'MaximusCollectivus.view.SongInfo'
     ],
-    layout: 'fit',
- 
+    
     initComponent: function() {
         this.items = {
-            xtype: 'panel',
             dockedItems: [{
                 dock: 'top',
                 xtype: 'toolbar',
@@ -21,11 +21,10 @@ Ext.define('MaximusCollectivus.view.Viewport', {
                     width: 150
                 }, {
                     xtype: 'songcontrols',
-                    height: 70,
                     flex: 1
                 }, {
                     xtype: 'component',
-                    html: 'Panda<br>Internet Radio'
+                    html: 'MaximusCollectivus<br>Internet Radio'
                 }]
             }],
             layout: {
@@ -35,6 +34,7 @@ Ext.define('MaximusCollectivus.view.Viewport', {
             items: [{
                 width: 250,
                 xtype: 'panel',
+                id: 'west-region',
                 layout: {
                     type: 'vbox',
                     align: 'stretch'
@@ -63,7 +63,7 @@ Ext.define('MaximusCollectivus.view.Viewport', {
                 }]
             }]
         };
- 
+        
         this.callParent();
     }
 });

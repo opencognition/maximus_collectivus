@@ -1,8 +1,25 @@
 Mcc::Application.routes.draw do
+  resources :categories
+  resources :category_tags
+  resources :exercises
+  resources :groups
+  resources :items
+  resources :nodes do
+    collection do
+      get 'tree'
+    end
+  end
+  resources :node_role_assignments
+  resources :permissions
+  resources :roles
+  resources :role_permissions
+  resources :sections
+  resources :tags
   resources :users
-
-  match "logout" => "application#logout"
-  match "cas_proxy_callback/:action" => "cas_proxy_callback"
+  resources :user_groups
+  
+  match "logout"                      => "application#logout"
+  match "cas_proxy_callback/:action"  => "cas_proxy_callback"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -53,7 +70,7 @@ Mcc::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'view#ext4' 
 
   # See how all your routes lay out with "rake routes"
 

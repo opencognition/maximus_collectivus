@@ -21,22 +21,28 @@ ug1 = UserGroup.create(:user => u1, :group => g1)
 
 # Create Exercises
 e1 = Exercise.create(:code => 'MAXCAL', :name => 'MAX Calendar')
+e2 = Exercise.create(:code => 'PERMITTING', :name => 'Permitting')
 
 # Create Categories
 c1 = Category.create(:code => 'PERSONAL_CALENDARS', :name => 'Peronal Calendars')
 c2 = Category.create(:code => 'OTHER_CALENDARS', :name => 'Other Calendars')
+c3 = Category.create(:code => 'PROJECTS', :name => 'Projects')
 
 # Create Items
 i1 = Item.create(:code => 'MAX_CONTRACTORS', :name => 'MAX Contractors')
 i2 = Item.create(:code => 'O000633', :name => 'Vonk, Dean (OMB,CTR)')
+i3 = Item.create(:code => 'BAYONNE_BRIDGE', :name => 'Bayonne Bridge')
 
 # Create Exercise Nodes
 n1 = Node.create(:describer => e1)
+n2 = Node.create(:describer => e2)
 
 # Create Category Nodes
-n2 = Node.create(:parent_id => n1.id, :describer => c1)
-n3 = Node.create(:parent_id => n1.id, :describer => c2)
+n1_1 = Node.create(:parent_id => n1.id, :describer => c1)
+n1_2 = Node.create(:parent_id => n1.id, :describer => c2)
+n2_1 = Node.create(:parent_id => n2.id, :describer => c3)
 
 # Create Item Nodes
-n4 = Node.create(:parent_id => n2.id, :describer => i1)
-n5 = Node.create(:parent_id => n3.id, :describer => i2)
+n1_1_1 = Node.create(:parent_id => n1_1.id, :describer => i1)
+n1_2_1 = Node.create(:parent_id => n1_2.id, :describer => i2)
+n2_1_1 = Node.create(:parent_id => n2_1.id, :describer => i3)

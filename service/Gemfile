@@ -8,6 +8,7 @@ gem 'rails', '3.2.13'
 gem 'mysql2'
 gem 'awesome_nested_set'
 gem 'rubycas-client', '2.3.10.rc1'
+# gem 'activeresource', '4.0.0.beta1'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -2,11 +2,24 @@ class NodesController < ApplicationController
   # GET /nodes
   # GET /nodes.json
   def index
-    @nodes = Node.includes(:describer)
+    @conditions[:parent_id] = nil if @conditions.has_key?(:parent_id) and @conditions[:parent_id].blank?
+    @nodes = Node.includes(@includes.split(",")).where(@conditions)
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @nodes }
+      format.json { render json: @nodes, :methods => @includes }
+    end
+  end
+
+  # GET /nodes/tree
+  # GET /nodes/tree.json
+  def tree
+    @conditions[:parent_id] = nil if @conditions.has_key?(:parent_id) and @conditions[:parent_id].blank?
+    @nodes = Node.includes(@includes.split(",")).where(@conditions)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @nodes, :methods => @includes }
     end
   end
 
