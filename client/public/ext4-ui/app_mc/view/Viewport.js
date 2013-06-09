@@ -1,77 +1,70 @@
 Ext.define('MaximusCollectivus.view.Viewport', {
     extend: 'Ext.container.Viewport',
-    layout: 'fit',
-    
-    requires: [
-        'MaximusCollectivus.view.NewExercise',
-        'MaximusCollectivus.view.ExercisesList',
-        'MaximusCollectivus.view.Tree'
+    requires:[
+        'Ext.tab.Panel',
+        'Ext.layout.container.Border',
+        'MaximusCollectivus.view.Navigation'
     ],
-    
-    initComponent: function() {
-        this.items = {
-            dockedItems: [{
-                dock: 'top',
-                xtype: 'toolbar',
-                height: 80,
-                items: [{
-                    xtype: 'newexercise',
-                    width: 150
-                }, {
-                    xtype: 'component',
-                    flex: 1,
-                    style: {"text-align": 'center'},
-                    html: '<h1 class="header">Maximus Collectivus</h1>'
-                }, {
-                    xtype: 'component',
-                    style: {"text-align": 'center', padding: '20px;'},
-                    html: '<h2 class="mc-small-tagline">Collect data the way the Spartans do!</h2>'
-                }]
-            }],
-            layout: {
-                type: 'border',
-                align: 'stretch'
-            },
-            items: [{
-                width: 300,
-                xtype: 'panel',
-                border: false,
-                id: 'west-region',
-                region: 'west',
-                split: true,
-                width: 250,
-                minWidth: 200,
-                layout: {
-                    type: 'vbox',
-                    align: 'stretch'
-                },
-                items: [{
-                    xtype: 'tree',
-                    title: 'Exercises',
-                    flex: 1,
-                    border: false,
-                    collapsible: true,
-                    tools: [{
-                        type: 'gear',
-                        regionTool: true
-                    }]
-                }]
-            }, {
-                xtype: 'container',
-                region: 'center',
-                flex: 1,
-                layout: {
-                    type: 'vbox',
-                    align: 'stretch'
-                },
-                items: [{
-                    xtype: 'component',
-                    flex: 1,
-                    html: 'details'
-                }]
-            }]
-        };
-        
-        this.callParent();
-    }
+
+    layout: 'border',
+
+    items: [{
+        region: 'north',
+        // xtype: 'appHeader',
+        html: '<h1>Maximus Collectivus</h1>'
+    }, {
+        region: 'west',
+        xtype: 'navigation',
+        width: 250,
+        minWidth: 100,
+        height: 200,
+        split: true,
+        stateful: true,
+        stateId: 'mainnav.west',
+        collapsible: true,
+        tools: [{
+            type: 'gear',
+            regionTool: true
+        }]
+    }, {
+        region: 'center',
+        // xtype: 'contentPanel'
+        html: 'details'
+    }, {
+        region: 'east',
+        id: 'east-region',
+        title: 'Info',
+        stateful: true,
+        stateId: 'mainnav.east',
+        split: true,
+        collapsible: true,
+        layout: {
+            type: 'vbox',
+            align: 'stretch'
+        },
+        width: 250,
+        height: 200,
+        minWidth: 100,
+        tools: [{
+            type: 'gear',
+            regionTool: true
+        }],
+        items: [{
+            // xtype: 'descriptionPanel',
+            stateful: true,
+            stateId: 'mainnav.east.description',
+            html: 'description',
+            height: 200,
+            minHeight: 100
+        }, {
+            xtype: 'splitter',
+            collapsible: true,
+            collapseTarget: 'prev'
+        }, {
+            // xtype: 'codePreview',
+            html: 'history',
+            flex: 1//,
+            //minHeight: 100
+        }]
+    }]
 });

@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130523171121) do
+ActiveRecord::Schema.define(:version => 20130608144112) do
+
+  create_table "authorizations", :force => true do |t|
+    t.integer  "node_id",    :null => false
+    t.integer  "role_id",    :null => false
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "categories", :force => true do |t|
     t.string   "code",        :null => false
@@ -36,6 +45,15 @@ ActiveRecord::Schema.define(:version => 20130523171121) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "expanded_authorizations", :id => false, :force => true do |t|
+    t.integer "id",      :default => 0, :null => false
+    t.integer "node_id", :default => 0, :null => false
+    t.integer "lft"
+    t.integer "rgt"
+    t.integer "role_id", :default => 0, :null => false
+    t.integer "user_id"
+  end
+
   create_table "groups", :force => true do |t|
     t.string   "code",        :null => false
     t.string   "name",        :null => false
@@ -50,15 +68,6 @@ ActiveRecord::Schema.define(:version => 20130523171121) do
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-  end
-
-  create_table "node_role_assignments", :force => true do |t|
-    t.integer  "node_id",    :null => false
-    t.integer  "role_id",    :null => false
-    t.integer  "user_id"
-    t.integer  "group_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "nodes", :force => true do |t|
@@ -119,6 +128,20 @@ ActiveRecord::Schema.define(:version => 20130523171121) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "user_nodes", :id => false, :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "id",             :default => 0, :null => false
+    t.integer  "describer_id"
+    t.string   "describer_type"
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "depth"
+    t.integer  "position"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "uuid",        :null => false
     t.string   "password",    :null => false
@@ -128,6 +151,22 @@ ActiveRecord::Schema.define(:version => 20130523171121) do
     t.string   "email"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "workflow_statuses", :force => true do |t|
+    t.string   "code",        :null => false
+    t.string   "name",        :null => false
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "workflows", :force => true do |t|
+    t.integer  "node_id",                           :null => false
+    t.integer  "workflow_status_id",                :null => false
+    t.integer  "active",             :default => 1, :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
 end

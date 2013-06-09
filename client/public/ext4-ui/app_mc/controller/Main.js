@@ -1,16 +1,16 @@
-Ext.define('KitchenSink.controller.Main', {
+Ext.define('MaximusCollectivus.controller.Main', {
     extend: 'Ext.app.Controller',
     requires: [
-        'KitchenSink.view.*',
+        'MaximusCollectivus.view.*',
         'Ext.window.Window'
     ],
 
     stores: [
-        'Companies',
-        'Restaurants',
-        'Files',
-        'States',
-        'BigData'
+        // 'Companies',
+        // 'Restaurants',
+        // 'Files',
+        // 'States',
+        // 'BigData'
     ],
 
     refs: [
@@ -40,18 +40,18 @@ Ext.define('KitchenSink.controller.Main', {
 
     init: function() {
         this.control({
-            'navigation': {
-                selectionchange: 'onNavSelectionChange'
-            },
+            // 'navigation': {
+            //     selectionchange: 'onNavSelectionChange'
+            // },
             'viewport': {
                 afterlayout: 'afterViewportLayout'
             },
-            'codePreview tool[type=maximize]': {
-                click: 'onMaximizeClick'
-            },
-            'contentPanel': {
-                resize: 'centerContent'
-            },
+            // 'codePreview tool[type=maximize]': {
+            //     click: 'onMaximizeClick'
+            // },
+            // 'contentPanel': {
+            //     resize: 'centerContent'
+            // },
             'tool[regionTool]': {
                 click: 'onSetRegion'
             }
@@ -99,63 +99,63 @@ Ext.define('KitchenSink.controller.Main', {
     },
 
     afterViewportLayout: function() {
-        if (!this.navigationSelected) {
-            var id = location.hash.substring(1),
-                navigation = this.getNavigation(),
-                store = navigation.getStore(),
-                node;
+        // if (!this.navigationSelected) {
+        //     var id = location.hash.substring(1),
+        //         navigation = this.getNavigation(),
+        //         store = navigation.getStore(),
+        //         node;
 
-            node = id ? store.getNodeById(id) : store.getRootNode().firstChild.firstChild;
+        //     node = id ? store.getNodeById(id) : store.getRootNode().firstChild.firstChild;
 
-            navigation.getSelectionModel().select(node);
-            navigation.getView().focusNode(node);
-            this.navigationSelected = true;
-        }
+        //     navigation.getSelectionModel().select(node);
+        //     navigation.getView().focusNode(node);
+        //     this.navigationSelected = true;
+        // }
     },
 
     onNavSelectionChange: function(selModel, records) {
-        var record = records[0],
-            text = record.get('text'),
-            xtype = record.get('id'),
-            alias = 'widget.' + xtype,
-            contentPanel = this.getContentPanel(),
-            themeName = Ext.themeName,
-            cmp;
+        // var record = records[0],
+        //     text = record.get('text'),
+        //     xtype = record.get('id'),
+        //     alias = 'widget.' + xtype,
+        //     contentPanel = this.getContentPanel(),
+        //     themeName = Ext.themeName,
+        //     cmp;
 
-        if (xtype) { // only leaf nodes have ids
-            contentPanel.removeAll(true);
+        // if (xtype) { // only leaf nodes have ids
+        //     contentPanel.removeAll(true);
 
-            var className = Ext.ClassManager.getNameByAlias(alias);
-            var ViewClass = Ext.ClassManager.get(className);
-            var clsProto = ViewClass.prototype;
-            if (clsProto.themes) {
-                clsProto.themeInfo = clsProto.themes[themeName];
-                if (themeName === 'gray' || themeName === 'access') {
-                    clsProto.themeInfo = Ext.applyIf(clsProto.themeInfo || {}, clsProto.themes.classic);
-                }
-            }
+        //     var className = Ext.ClassManager.getNameByAlias(alias);
+        //     var ViewClass = Ext.ClassManager.get(className);
+        //     var clsProto = ViewClass.prototype;
+        //     if (clsProto.themes) {
+        //         clsProto.themeInfo = clsProto.themes[themeName];
+        //         if (themeName === 'gray' || themeName === 'access') {
+        //             clsProto.themeInfo = Ext.applyIf(clsProto.themeInfo || {}, clsProto.themes.classic);
+        //         }
+        //     }
 
-            cmp = new ViewClass();
-            contentPanel.add(cmp);
-            if (cmp.floating) {
-                cmp.show();
-            } else {
-                this.centerContent();
-            }
+        //     cmp = new ViewClass();
+        //     contentPanel.add(cmp);
+        //     if (cmp.floating) {
+        //         cmp.show();
+        //     } else {
+        //         this.centerContent();
+        //     }
 
-            contentPanel.setTitle(text);
+        //     contentPanel.setTitle(text);
 
-            document.title = document.title.split(' - ')[0] + ' - ' + text;
-            location.hash = xtype;
+        //     document.title = document.title.split(' - ')[0] + ' - ' + text;
+        //     location.hash = xtype;
 
-            this.updateDescription(clsProto);
+        //     this.updateDescription(clsProto);
 
-            if (clsProto.exampleCode) {
-                this.updateCodePreview(clsProto.exampleCode);
-            } else {
-                this.updateCodePreviewAsync(clsProto, xtype);
-            }
-        }
+        //     if (clsProto.exampleCode) {
+        //         this.updateCodePreview(clsProto.exampleCode);
+        //     } else {
+        //         this.updateCodePreviewAsync(clsProto, xtype);
+        //     }
+        // }
     },
 
     onMaximizeClick: function(){

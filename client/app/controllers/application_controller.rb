@@ -37,6 +37,7 @@ class ApplicationController < ActionController::Base
     Tag.proxy_granting_ticket                 = proxy_granting_ticket
     User.proxy_granting_ticket                = proxy_granting_ticket
     UserGroup.proxy_granting_ticket           = proxy_granting_ticket
+    UserNode.proxy_granting_ticket            = proxy_granting_ticket
   end
 
   def set_default_active_record_parameters

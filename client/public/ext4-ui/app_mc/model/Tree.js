@@ -16,7 +16,7 @@ Ext.define('MaximusCollectivus.model.Tree', {
     
     proxy: {
         type: 'ajax',
-        url: 'nodes/tree.json?includes=describer,children',
+        url: 'nodes/user_tree.json?includes=describer,children',
         extraParams: {
           "conditions[parent_id]": null
         },

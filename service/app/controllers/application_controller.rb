@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   skip_before_filter    :verify_authenticity_token
   before_filter         CASClient::Frameworks::Rails::Filter
   before_filter         :set_default_active_record_parameters
+  before_filter         :set_cas_user
 
   def logout
     # optionally do some local cleanup here
@@ -24,4 +25,7 @@ class ApplicationController < ActionController::Base
     @conditions = params[:conditions].respond_to?("has_key?") ? params[:conditions] : {}
   end
   
+  def set_cas_user
+    @cas_user = User.find_by_email(session[:cas_user])
+  end
 end

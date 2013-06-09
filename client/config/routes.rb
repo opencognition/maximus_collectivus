@@ -8,6 +8,9 @@ Mcc::Application.routes.draw do
     collection do
       get 'tree'
     end
+    collection do
+      get 'user_tree'
+    end
   end
   resources :node_role_assignments
   resources :permissions

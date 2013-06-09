@@ -1,4 +1,5 @@
 Mcs::Application.routes.draw do
+  resources :authorizations
   resources :categories
   resources :category_tags
   resources :exercises
@@ -9,7 +10,7 @@ Mcs::Application.routes.draw do
       get 'tree'
     end
   end
-  resources :node_role_assignments
+  # resources :node_role_assignments
   resources :permissions
   resources :roles
   resources :role_permissions
@@ -17,6 +18,11 @@ Mcs::Application.routes.draw do
   resources :tags
   resources :users
   resources :user_groups
+  resources :user_nodes do
+    collection do
+      get 'tree'
+    end
+  end
 
   match "logout"                      => "application#logout"
   match "cas_proxy_callback/:action"  => "cas_proxy_callback"
