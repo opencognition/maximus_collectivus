@@ -3,15 +3,16 @@ Ext.define('MaximusCollectivus.view.Viewport', {
     requires:[
         'Ext.tab.Panel',
         'Ext.layout.container.Border',
-        'MaximusCollectivus.view.Navigation'
+        'MaximusCollectivus.view.Navigation',
+        'MaximusCollectivus.view.Header',
+        'MaximusCollectivus.view.ContentPanel'
     ],
 
     layout: 'border',
 
     items: [{
         region: 'north',
-        // xtype: 'appHeader',
-        html: '<h1>Maximus Collectivus</h1>'
+        xtype: 'appHeader'
     }, {
         region: 'west',
         xtype: 'navigation',
@@ -28,8 +29,7 @@ Ext.define('MaximusCollectivus.view.Viewport', {
         }]
     }, {
         region: 'center',
-        // xtype: 'contentPanel'
-        html: 'details'
+        xtype: 'contentPanel'
     }, {
         region: 'east',
         id: 'east-region',

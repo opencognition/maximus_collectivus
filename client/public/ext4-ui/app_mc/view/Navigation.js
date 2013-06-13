@@ -9,5 +9,22 @@ Ext.define('MaximusCollectivus.view.Navigation', {
       name: 'Root',
       id: 'root',
       children: []
-    }
+    },
+    dockedItems: [{
+        dock: 'top',
+        xtype: 'toolbar',
+        items: [{
+            glyph: 61,
+            xtype: 'button'
+        }, '-', {
+            glyph: 88,
+            xtype: 'button'
+        }, {
+            glyph: 70,
+            xtype: 'button'
+        }, '-', {
+            glyph: 47,
+            xtype: 'button'
+        }]
+    }]
 });

@@ -36,7 +36,7 @@ groups = Group.all
 
 # Create Users
 @dean = User.create(:password => 'password', :uuid => 'O000633', :first_name => 'Dean', :middle_name => 'Robert', :last_name => 'Vonk', :email => 'dean.vonk@gmail.com')
-1000.times do
+100000.times do
     g = groups.sample
     first_name = Faker::Name.first_name
     middle_name = Faker::Name.first_name
@@ -102,8 +102,8 @@ n2.workflows.create(:workflow_status => ws3)
 # Generate random nodes or varying depth and assign random authorizations
 sub_category_counts = (0..3).to_a
 category_counts = (1..4).to_a
-item_counts = (0..10).to_a
-250.times do
+item_counts = (0..100).to_a
+300.times do
     ename = Faker::Company.name
     ecode = ename.upcase
     e = Exercise.create(:code => ecode, :name => ename, :description => Faker::Company.bs)

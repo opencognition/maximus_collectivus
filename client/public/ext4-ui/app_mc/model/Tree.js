@@ -12,11 +12,18 @@ Ext.define('MaximusCollectivus.model.Tree', {
       {name: 'code',            mapping: 'describer.code'},
       {name: 'name',            mapping: 'describer.name'},
       {name: 'description',     mapping: 'describer.description'}
+      // {name: 'children',        convert: function(){return [];}}
     ],
     
     proxy: {
+        // AJAX
         type: 'ajax',
         url: 'nodes/user_tree.json?includes=describer,children',
+        // url: 'nodes/tree.json?includes=describer,children',
+
+        // JSONP
+        // type: 'jsonp',
+        // url: 'https://service.maximus-collectivus.gov/user_nodes/tree.json?includes=describer,children',
         extraParams: {
           "conditions[parent_id]": null
         },

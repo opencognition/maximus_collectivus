@@ -27,8 +27,8 @@ class NodesController < ApplicationController
   # GET /nodes/user_tree
   # GET /nodes/user_tree.json
   def user_tree
-    @nodes = UserNode.find(:all, :params => {:includes => @includes << 'children', :conditions => @conditions})
-    # @nodes = UserNode.get(:tree, :params => {:includes => @includes << 'children', :conditions => @conditions})
+    # @nodes = UserNode.find(:all, :params => {:includes => @includes << 'children', :conditions => @conditions})
+    @nodes = UserNode.find(:all, :params => {:includes => @includes, :conditions => @conditions})
     respond_to do |format|
       format.html # index.html.erb
       format.json {

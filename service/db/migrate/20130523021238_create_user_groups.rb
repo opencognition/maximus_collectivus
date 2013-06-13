@@ -7,3 +7,17 @@ class CreateUserGroups < ActiveRecord::Migration
     end
   end
 end
+
+# ALTER TABLE `mc_development`.`user_groups` 
+#   ADD CONSTRAINT `FK_UG_USER`
+#   FOREIGN KEY (`user_id` )
+#   REFERENCES `mc_development`.`users` (`id` )
+#   ON DELETE NO ACTION
+#   ON UPDATE NO ACTION, 
+#   ADD CONSTRAINT `FK_UG_GROUP`
+#   FOREIGN KEY (`group_id` )
+#   REFERENCES `mc_development`.`groups` (`id` )
+#   ON DELETE NO ACTION
+#   ON UPDATE NO ACTION
+# , ADD INDEX `USER_ID_idx` (`user_id` ASC) 
+# , ADD INDEX `GROUP_ID_idx` (`group_id` ASC) ;

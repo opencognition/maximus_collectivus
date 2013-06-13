@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessible :uuid, :first_name, :middle_name, :last_name, :email, :password
+  cattr_accessor :user_id
   has_many :authorizations
   has_many :expanded_authorizations
   has_many :user_groups

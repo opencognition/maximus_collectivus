@@ -5,13 +5,15 @@ Ext.define('MaximusCollectivus.store.Tree', {
     listeners: {
       beforeload: function( store, operation, eOpts ) {
         store.proxy.extraParams = {
-          "conditions[parent_id]": Ext.isNumber(parseInt((operation.id || "").split("-")[1])) ? operation.id.split("-")[1] : null
+          // "conditions[parent_id]": Ext.isNumber(parseInt((operation.id || "").split("-")[1])) ? operation.id.split("-")[1] : null
+          "conditions[parent_id]": Ext.isNumber(parseInt(operation.id)) ? operation.id : null
         }
       },
       append: function (thisNode, newChildNode, index, eOpts) {
         try {
           newChildNode.set('expandable', !Ext.isEmpty(newChildNode.data.children));
-          newChildNode.set('id', newChildNode.data.describer_type + '-' + newChildNode.data.id);
+          // newChildNode.set('id', newChildNode.data.describer_type + '-' + newChildNode.data.id);
+          newChildNode.set('id', newChildNode.data.id);
         }
         catch (exc) {
         }

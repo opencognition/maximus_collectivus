@@ -11,3 +11,10 @@ class CreateNodes < ActiveRecord::Migration
     end
   end
 end
+
+# ALTER TABLE `mc_development`.`nodes` 
+# ADD INDEX `I_N_PARENT_ID` (`parent_id` ASC) 
+# , ADD INDEX `I_N_DESCRIBER_TYPE` (`describer_type` ASC) 
+# , ADD INDEX `I_N_DESCRIBER_ID` (`describer_id` ASC) 
+# , ADD INDEX `I_N_LFT` (`lft` ASC) 
+# , ADD INDEX `I_N_RGT` (`rgt` ASC) ;

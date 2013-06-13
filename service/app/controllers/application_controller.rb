@@ -27,5 +27,6 @@ class ApplicationController < ActionController::Base
   
   def set_cas_user
     @cas_user = User.find_by_email(session[:cas_user])
+    User.user_id = @cas_user.id
   end
 end

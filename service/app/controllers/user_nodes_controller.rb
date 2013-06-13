@@ -19,9 +19,17 @@ class UserNodesController < ApplicationController
     @conditions[:user_id] = @cas_user.id
     @user_nodes = UserNode.includes(@includes.split(",")).where(@conditions)
 
+    # respond_to do |format|
+    #   format.html # index.html.erb
+    #   format.json { render json: @user_nodes, :methods => @includes }
+    # end
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @user_nodes, :methods => @includes }
+      if params[:callback]
+        format.json { render json: @user_nodes, :methods => @includes, :callback => params[:callback] }
+      else
+        format.json { render json: @user_nodes, :methods => @includes }
+      end
     end
   end
 

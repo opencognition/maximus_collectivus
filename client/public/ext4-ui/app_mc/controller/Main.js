@@ -40,18 +40,18 @@ Ext.define('MaximusCollectivus.controller.Main', {
 
     init: function() {
         this.control({
-            // 'navigation': {
-            //     selectionchange: 'onNavSelectionChange'
-            // },
+            'navigation': {
+                selectionchange: 'onNavSelectionChange'
+            },
             'viewport': {
                 afterlayout: 'afterViewportLayout'
             },
-            // 'codePreview tool[type=maximize]': {
-            //     click: 'onMaximizeClick'
-            // },
-            // 'contentPanel': {
-            //     resize: 'centerContent'
-            // },
+            'contentPanel tool[type=maximize]': {
+                click: 'onMaximizeClick'
+            },
+            'contentPanel': {
+                resize: 'centerContent'
+            },
             'tool[regionTool]': {
                 click: 'onSetRegion'
             }
@@ -114,16 +114,18 @@ Ext.define('MaximusCollectivus.controller.Main', {
     },
 
     onNavSelectionChange: function(selModel, records) {
-        // var record = records[0],
-        //     text = record.get('text'),
-        //     xtype = record.get('id'),
-        //     alias = 'widget.' + xtype,
-        //     contentPanel = this.getContentPanel(),
-        //     themeName = Ext.themeName,
-        //     cmp;
+        var record = records[0],
+            text = record.get('name'),
+            xtype = record.get('describer_type').toLowerCase(),
+            alias = 'widget.' + xtype,
+            contentPanel = this.getContentPanel(),
+            themeName = Ext.themeName,
+            cmp;
 
-        // if (xtype) { // only leaf nodes have ids
-        //     contentPanel.removeAll(true);
+        console.log(xtype);
+        console.log(record);
+        if (xtype) { // only leaf nodes have ids
+            contentPanel.removeAll(true);
 
         //     var className = Ext.ClassManager.getNameByAlias(alias);
         //     var ViewClass = Ext.ClassManager.get(className);
@@ -143,10 +145,12 @@ Ext.define('MaximusCollectivus.controller.Main', {
         //         this.centerContent();
         //     }
 
-        //     contentPanel.setTitle(text);
+            contentPanel.setTitle(text);
+            contentPanel.tpl.overwrite(contentPanel.body, record.get('children'));
+            this.centerContent();
 
-        //     document.title = document.title.split(' - ')[0] + ' - ' + text;
-        //     location.hash = xtype;
+            document.title = document.title.split(' - ')[0] + ' - ' + text;
+            location.hash = xtype + '-' + record.get('describer_id');
 
         //     this.updateDescription(clsProto);
 
@@ -155,34 +159,41 @@ Ext.define('MaximusCollectivus.controller.Main', {
         //     } else {
         //         this.updateCodePreviewAsync(clsProto, xtype);
         //     }
-        // }
+        }
     },
 
     onMaximizeClick: function(){
-        var preview = this.getCodePreview(),
-            code = preview.getEl().down('.prettyprint').dom.innerHTML;
+        var content = this.getContentPanel(),
+           viewport = this.getViewport();
+
+            // code = preview.getEl().down('.prettyprint').dom.innerHTML;
 
         var w = new Ext.window.Window({
             rtl: false,
             baseCls: 'x-panel',
             maximized: true,
-            title: 'Code Preview',
+            title: content.title, //'Code Preview',
             plain: true,
-            cls: 'preview-container',
+            // cls: 'preview-container',
             autoScroll: true,
-            bodyStyle: 'background-color:white',
-            html: '<pre class="prettyprint">' + code + '</pre>',
+            // bodyStyle: 'background-color:white',
+            // html: '<pre class="prettyprint">' + code + '</pre>',
             closable: false,
+            items: [content],
             tools: [{
                 type: 'close',
                 handler: function() {
-                    w.hide(preview, function() {
+                    viewport.add(content);
+                    viewport.doLayout();
+                    w.hide(content, function() {
+                        viewport.add(content);
+                        viewport.doLayout();
                         w.destroy();
                     });
                 }
             }]
         });
-        w.show(preview);
+        w.show(content);
     },
 
     processCodePreview: function (clsProto, text) {
