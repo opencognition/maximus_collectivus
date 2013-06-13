@@ -7,6 +7,33 @@ class CreateAuthorizations < ActiveRecord::Migration
       t.references :group
       t.timestamps
     end
+    execute <<-SQL
+      ALTER TABLE `authorizations`
+        ADD CONSTRAINT `FK_AUTHORIZATIONS_NODE`
+        FOREIGN KEY (`node_id` )
+        REFERENCES `nodes` (`id` )
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION, 
+        ADD CONSTRAINT `FK_AUTHORIZATIONS_ROLE`
+        FOREIGN KEY (`role_id` )
+        REFERENCES `roles` (`id` )
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION, 
+        ADD CONSTRAINT `FK_AUTHORIZATIONS_USER`
+        FOREIGN KEY (`user_id` )
+        REFERENCES `users` (`id` )
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION, 
+        ADD CONSTRAINT `FK_AUTHORIZATIONS_GROUP`
+        FOREIGN KEY (`group_id` )
+        REFERENCES `groups` (`id` )
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION, 
+        ADD INDEX `I_AUTHORIZATIONS_NODE_ID` (`node_id` ASC) 
+        , ADD INDEX `I_AUTHORIZATIONS_ROLE_ID` (`role_id` ASC) 
+        , ADD INDEX `I_AUTHORIZATIONS_USER_ID` (`user_id` ASC) 
+        , ADD INDEX `I_AUTHORIZATIONS_GROUP_ID` (`group_id` ASC);
+    SQL
   end
 end
 

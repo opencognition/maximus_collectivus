@@ -9,14 +9,11 @@ Ext.define('MaximusCollectivus.store.Tree', {
           "conditions[parent_id]": Ext.isNumber(parseInt(operation.id)) ? operation.id : null
         }
       },
-      append: function (thisNode, newChildNode, index, eOpts) {
-        try {
-          newChildNode.set('expandable', !Ext.isEmpty(newChildNode.data.children));
-          // newChildNode.set('id', newChildNode.data.describer_type + '-' + newChildNode.data.id);
-          newChildNode.set('id', newChildNode.data.id);
-        }
-        catch (exc) {
-        }
+      beforeappend: function(node, newNode, eopts) {
+          var hasChildren = !Ext.isEmpty(newNode.data.children);
+          newNode.set('expandable', hasChildren);
+          newNode.set('id', newNode.data.id);
+          // newNode.set('leaf', !hasChildren);
       }
     }
 });

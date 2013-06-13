@@ -4,7 +4,7 @@ class UserNodesController < ApplicationController
   def index
     @conditions[:parent_id] = nil if @conditions.has_key?(:parent_id) and @conditions[:parent_id].blank?
     @conditions[:user_id] = @cas_user.id
-    @user_nodes = UserNode.includes(@includes.split(",")).where(@conditions)
+    @user_nodes = UserNode.includes(@includes.split(",")).where(@conditions).uniq
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,7 +17,7 @@ class UserNodesController < ApplicationController
   def tree
     @conditions[:parent_id] = nil if @conditions.has_key?(:parent_id) and @conditions[:parent_id].blank?
     @conditions[:user_id] = @cas_user.id
-    @user_nodes = UserNode.includes(@includes.split(",")).where(@conditions)
+    @user_nodes = UserNode.includes(@includes.split(",")).where(@conditions).uniq
 
     # respond_to do |format|
     #   format.html # index.html.erb

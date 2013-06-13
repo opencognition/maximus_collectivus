@@ -9,5 +9,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email
       t.timestamps
     end
+    execute <<-SQL
+      ALTER TABLE `users`
+        ADD INDEX `I_USERS_EMAIL` (`email` ASC) ;
+    SQL
   end
 end

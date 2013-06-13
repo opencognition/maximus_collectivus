@@ -22,6 +22,11 @@ ActiveRecord::Schema.define(:version => 20130608144112) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "authorizations", ["group_id"], :name => "I_AUTHORIZATIONS_GROUP_ID"
+  add_index "authorizations", ["node_id"], :name => "I_AUTHORIZATIONS_NODE_ID"
+  add_index "authorizations", ["role_id"], :name => "I_AUTHORIZATIONS_ROLE_ID"
+  add_index "authorizations", ["user_id"], :name => "I_AUTHORIZATIONS_USER_ID"
+
   create_table "categories", :force => true do |t|
     t.string   "code",        :null => false
     t.string   "name",        :null => false
@@ -82,6 +87,12 @@ ActiveRecord::Schema.define(:version => 20130608144112) do
     t.datetime "updated_at",     :null => false
   end
 
+  add_index "nodes", ["describer_id"], :name => "I_NODES_DESCRIBER_ID"
+  add_index "nodes", ["describer_type"], :name => "I_NODES_DESCRIBER_TYPE"
+  add_index "nodes", ["lft"], :name => "I_NODES_LFT"
+  add_index "nodes", ["parent_id"], :name => "I_NODES_PARENT_ID"
+  add_index "nodes", ["rgt"], :name => "I_NODES_RGT"
+
   create_table "permissions", :force => true do |t|
     t.string   "code",        :null => false
     t.string   "name",        :null => false
@@ -128,6 +139,9 @@ ActiveRecord::Schema.define(:version => 20130608144112) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "user_groups", ["group_id"], :name => "I_USER_GROUPS_GROUP_ID"
+  add_index "user_groups", ["user_id"], :name => "I_USER_GROUPS_USER_ID"
+
   create_table "user_nodes", :id => false, :force => true do |t|
     t.integer  "user_id"
     t.integer  "id",             :default => 0, :null => false
@@ -152,6 +166,8 @@ ActiveRecord::Schema.define(:version => 20130608144112) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "users", ["email"], :name => "I_USERS_EMAIL"
 
   create_table "workflow_statuses", :force => true do |t|
     t.string   "code",        :null => false

@@ -12,7 +12,6 @@ Ext.define('MaximusCollectivus.model.Tree', {
       {name: 'code',            mapping: 'describer.code'},
       {name: 'name',            mapping: 'describer.name'},
       {name: 'description',     mapping: 'describer.description'}
-      // {name: 'children',        convert: function(){return [];}}
     ],
     
     proxy: {

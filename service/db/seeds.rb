@@ -32,12 +32,12 @@ Group.create(:code => 'DOI',    :name => 'Department of the Interior')
 Group.create(:code => 'DOT',    :name => 'Department of Transportation')
 Group.create(:code => 'VA',     :name => 'Department of Veterans Affairs')
 Group.create(:code => 'TREAS',  :name => 'Department of the Treasury')
-groups = Group.all
+@groups = Group.all
 
 # Create Users
 @dean = User.create(:password => 'password', :uuid => 'O000633', :first_name => 'Dean', :middle_name => 'Robert', :last_name => 'Vonk', :email => 'dean.vonk@gmail.com')
 100000.times do
-    g = groups.sample
+    g = @groups.sample
     first_name = Faker::Name.first_name
     middle_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
@@ -100,28 +100,33 @@ n2.workflows.create(:workflow_status => ws2)
 n2.workflows.create(:workflow_status => ws3)
 
 # Generate random nodes or varying depth and assign random authorizations
-sub_category_counts = (0..3).to_a
 category_counts = (1..4).to_a
-item_counts = (0..100).to_a
+item_counts = (0..75).to_a
 300.times do
     ename = Faker::Company.name
     ecode = ename.upcase
     e = Exercise.create(:code => ecode, :name => ename, :description => Faker::Company.bs)
-    en = Node.create(:describer => e)
-    owner = @users.sample
-    en.authorizations.create(:user => owner, :role => @role_owner)
-    category_counts.sample.times do
-        cname = Faker::Company.name
-        ccode = cname.upcase
-        c = Category.create(:code => ccode, :name => cname, :description => Faker::Company.bs)
-        cn = Node.create(:parent_id => en.id, :describer => c)
-        cn.authorizations.create(:user => owner, :role => @role_owner)
-        item_counts.sample.times do
-            iname = Faker::Company.name
-            icode = iname.upcase
-            i = Item.create(:code => icode, :name => iname, :description => Faker::Company.bs)
-            inode = Node.create(:parent_id => cn.id, :describer => i)
-            inode.authorizations.create(:user => owner, :role => @role_owner)
+    if e.id != nil
+        en = Node.create(:describer => e)
+        owner = @users.sample
+        en.authorizations.create(:user => owner, :role => @role_owner)
+        category_counts.sample.times do
+            cname = Faker::Company.name
+            ccode = cname.upcase
+            c = Category.create(:code => ccode, :name => cname, :description => Faker::Company.bs)
+            if c.id != nil
+                cn = Node.create(:parent_id => en.id, :describer => c)
+                cn.authorizations.create(:user => owner, :role => @role_owner)
+                item_counts.sample.times do
+                    iname = Faker::Company.name
+                    icode = iname.upcase
+                    i = Item.create(:code => icode, :name => iname, :description => Faker::Company.bs)
+                    if i.id != nil
+                        inode = Node.create(:parent_id => cn.id, :describer => i)
+                        inode.authorizations.create(:user => owner, :role => @role_owner)
+                    end
+                end
+            end
         end
     end
 end

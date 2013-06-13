@@ -9,6 +9,19 @@ class CreateNodes < ActiveRecord::Migration
       t.integer :position
       t.timestamps
     end
+    execute <<-SQL
+      ALTER TABLE `nodes`
+        ADD CONSTRAINT `FK_NODES_PARENT`
+        FOREIGN KEY (`parent_id` )
+        REFERENCES `nodes` (`id` )
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION, 
+        ADD INDEX `I_NODES_PARENT_ID` (`parent_id` ASC) 
+        , ADD INDEX `I_NODES_DESCRIBER_TYPE` (`describer_type` ASC) 
+        , ADD INDEX `I_NODES_DESCRIBER_ID` (`describer_id` ASC) 
+        , ADD INDEX `I_NODES_LFT` (`lft` ASC) 
+        , ADD INDEX `I_NODES_RGT` (`rgt` ASC) ;
+    SQL
   end
 end
 

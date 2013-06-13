@@ -3,6 +3,7 @@ Ext.define('MaximusCollectivus.view.Navigation', {
     alias: 'widget.navigation',
     title: 'Exercise Navigator',
     store: 'Tree',
+    id: 'foobar',
     rootVisible: false,
     displayField: 'name',
     root: {

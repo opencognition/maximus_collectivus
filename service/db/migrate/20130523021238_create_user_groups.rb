@@ -5,6 +5,21 @@ class CreateUserGroups < ActiveRecord::Migration
       t.references :group, :null => false
       t.timestamps
     end
+    execute <<-SQL
+      ALTER TABLE `user_groups`
+        ADD CONSTRAINT `FK_USER_GROUPS_USER`
+        FOREIGN KEY (`user_id` )
+        REFERENCES `users` (`id` )
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION, 
+        ADD CONSTRAINT `FK_USER_GROUPS_GROUP`
+        FOREIGN KEY (`group_id` )
+        REFERENCES `groups` (`id` )
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+      , ADD INDEX `I_USER_GROUPS_USER_ID` (`user_id` ASC) 
+      , ADD INDEX `I_USER_GROUPS_GROUP_ID` (`group_id` ASC) ;
+    SQL
   end
 end
 
